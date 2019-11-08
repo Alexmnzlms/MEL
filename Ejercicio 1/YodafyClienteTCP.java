@@ -30,24 +30,15 @@ public class YodafyClienteTCP {
 		try {
 			// Creamos un socket que se conecte a "host" y "port":
 			//////////////////////////////////////////////////////
-			try {
-				socketServicio = new Socket (host,port);
-			}
-			catch (UnknownHostException e) {
-				System.err.println("Error: equipo desconocido");
-			}
-			catch (IOException e) {
-				System.err.println("Error: no se pudo establecer la conexión");
-			}
+			socketServicio = new Socket (host,port);
 			//////////////////////////////////////////////////////
-
 
 			InputStream inputStream = socketServicio.getInputStream();
 			OutputStream outputStream = socketServicio.getOutputStream();
 
 			// Si queremos enviar una cadena de caracteres por un OutputStream, hay que pasarla primero
 			// a un array de bytes:
-			buferEnvio="Al monte del volcán debes ir sin demora".getBytes();
+			buferEnvio="Al monte del volcan debes ir sin demora".getBytes();
 
 			// Enviamos el array por el outputStream;
 			//////////////////////////////////////////////////////
