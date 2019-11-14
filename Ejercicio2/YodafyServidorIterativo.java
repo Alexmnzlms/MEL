@@ -1,6 +1,8 @@
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.BufferedReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -18,6 +20,7 @@ public class YodafyServidorIterativo {
 		byte []buffer=new byte[256];
 		// Número de bytes leídos
 		int bytesLeidos=0;
+		Socket socketServicio = null;
 
 		try {
 			// Abrimos el socket en modo pasivo, escuchando el en puerto indicado por "port"
@@ -31,7 +34,7 @@ public class YodafyServidorIterativo {
 
 				// Aceptamos una nueva conexión con accept()
 				/////////////////////////////////////////////////
-				Socket socketServicio = null;
+				//Socket socketServicio = null;
 				try {
 					socketServicio = socketServidor.accept();
 				}
@@ -39,11 +42,10 @@ public class YodafyServidorIterativo {
 					System.out.println("Error:no se pudo aceptar la	conexión solicitada");
 				}
 				//////////////////////////////////////////////////
-
 				// Creamos un objeto de la clase ProcesadorYodafy, pasándole como
 				// argumento el nuevo socket, para que realice el procesamiento
 				// Este esquema permite que se puedan usar hebras más fácilmente.
-				ProcesadorYodafy procesador=new ProcesadorYodafy(socketServicio);
+				ProcesadorYodafy procesador = new ProcesadorYodafy(socketServicio);
 				procesador.procesa();
 
 			} while (true);
