@@ -41,17 +41,17 @@ public class ProcesadorYodafy {
 	void procesa(){
 
 		// Como máximo leeremos un bloque de 1024 bytes. Esto se puede modificar.
-		byte [] datosRecibidos=new byte[1024];
-		int bytesRecibidos=0;
+		//byte [] datosRecibidos=new byte[1024];
+		//int bytesRecibidos=0;
 
 		// Array de bytes para enviar la respuesta. Podemos reservar memoria cuando vayamos a enviarka:
-		byte [] datosEnviar;
+		//byte [] datosEnviar;
 
 
 		try {
 			// Obtiene los flujos de escritura/lectura
-			inputStream=socketServicio.getInputStream();
-			outputStream=socketServicio.getOutputStream();
+			//inputStream=socketServicio.getInputStream();
+			//outputStream=socketServicio.getOutputStream();
 
 			outPrinter = new PrintWriter(socketServicio.getOutputStream(),true);
 			inReader = new BufferedReader(new InputStreamReader(socketServicio.getInputStream()));
