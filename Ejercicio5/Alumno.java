@@ -19,14 +19,16 @@ public class Alumno{
       this.password = usuario;
    }
 
-   String toString(){
+   String pasoString(){
       String alumno;
       alumno = "Usuario =" + usuario + "\n";
-      for(int i = 0; i < asignaturas.length; i++){
-         alumno = alumno + asignaturas[i].toString() + "\n";
+      for(int i = 0; i < asignaturas.size(); i++){
+         alumno = alumno + asignaturas.get(i).pasoString() + "\n";
       }
       return alumno;
    }
-   void addAsignatura();
+   void addAsignatura(Asignatura asign){
+      asignaturas.add(asign);
+   }
 
 }

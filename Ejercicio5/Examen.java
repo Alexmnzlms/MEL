@@ -8,16 +8,17 @@ import java.net.Socket;
 import java.util.Random;
 import java.util.Date;
 
-ublic class Examen{
+public class Examen{
    private Date fecha;
    private int nota;
 
    Examen(int dia, int mes, int anio, int nota){
-      this.fecha = Date(anio,mes,dia);
+      Date fech = new Date(anio,mes,dia);
+      fecha = fech;
       this.nota = nota;
    }
 
-   String toString(){
+   String pasoString(){
       return "Fecha " + fecha + ", nota: " + nota + "\n";
    }
 }
