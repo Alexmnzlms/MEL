@@ -52,6 +52,7 @@ public class GestorAcademicoClienteTCP {
 						System.out.println("¿Que desea hacer? Introduzca una letra:");
 						System.out.println("[A] Modo Añadir");
 						System.out.println("[V] Modo Visualización");
+						System.out.println("[E] Salir");
 						String opcion = in.nextLine();
 						outPrinter.println(opcion);
 						break;
@@ -61,8 +62,20 @@ public class GestorAcademicoClienteTCP {
 						System.out.println(asignaturas);
 						break;
 					case "ANADE":
+						System.out.println("¿Que desea añadir? Introduzca una letra:");
+						System.out.println("[A] Añadir Asignatura");
+						System.out.println("[N] Añadir Nota");
+						System.out.println("[E] Salir");
+						String aniade = in.nextLine();
+						outPrinter.println(aniade);
 						break;
 					case "ANADE_ASIG":
+						System.out.println("Nombre de la asignatura: ");
+						String nombre = in.nextLine();
+						outPrinter.println(nombre);
+						System.out.println("Siglas de la asignatura: ");
+						String siglas = in.nextLine();
+						outPrinter.println(siglas);
 						break;
 					case "ANADE_NOTA":
 						break;

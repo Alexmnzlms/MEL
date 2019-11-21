@@ -19,6 +19,6 @@ public class Examen{
    }
 
    String pasoString(){
-      return "Examen: " + "Fecha-> " + fecha + ", nota-> " + nota + ", ";
+      return "[Examen: " + "Fecha-> " + fecha + ", nota-> " + nota + "] ";
    }
 }

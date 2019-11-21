@@ -64,6 +64,9 @@ public class GestorAcademico extends Thread{
                   respuesta = "Bienvenido, introduzca login y contraseña.";
                   System.out.println(respuesta);
                   estadoActual = "NOAUTENTIFICADO";
+                  for(int i = 0; i < alumnos.size(); i++){
+                     System.out.println(alumnos.get(i).pasoString());
+                  }
                   break;
                case "NOAUTENTIFICADO":
                   String usuario = new String(inReader.readLine());
@@ -91,12 +94,15 @@ public class GestorAcademico extends Thread{
                      String opcion = new String(inReader.readLine());
                      System.out.println("Opcion - Recibido: ");
                      if(opcion.equals("A")){
+                        respuesta = "Has entrado en el Modo Añade. ¿Que quieres añadir?";
                         estadoActual = "ANADE";
                      } else if(opcion.equals("V")) {
                         respuesta = "Has entrado en el Modo Visualización.";
                         estadoActual = "VISUALIZACION";
+                     } else if(opcion.equals("E")) {
+                        respuesta = "GOODBYE";
+                        estadoActual = "EXIT";
                      } else {
-                        respuesta = "Has entrado en el Modo Añade. ¿Que quieres añadir?";
                         estadoActual = "AUTENTIFICADO";
                      }
                   break;
@@ -106,10 +112,45 @@ public class GestorAcademico extends Thread{
                   estadoActual = "AUTENTIFICADO";
                   break;
                case "ANADE":
+                  String aniade = new String(inReader.readLine());
+                  System.out.println("Opcion - Recibido: ");
+                  if(aniade.equals("A")){
+                     respuesta = "Has entrado en el Modo Añade asignatura. ¿Que quieres añadir?";
+                     estadoActual = "ANADE_ASIG";
+                  } else if(aniade.equals("N")) {
+                     respuesta = "Has entrado en el Modo Añade nota. ¿Que quieres añadir?";
+                     estadoActual = "ANADE_NOTA";
+                  } else if(aniade.equals("E")) {
+                     respuesta = "GOODBYE";
+                     estadoActual = "AUTENTIFICADO";
+                  } else {
+                     estadoActual = "ANADE";
+                  }
                   break;
                case "ANADE_ASIG":
+                  String nombre = new String(inReader.readLine());
+                  String siglas = new String(inReader.readLine());
+                  System.out.println("Nombre - Recibido: ");
+                  System.out.println(nombre);
+                  System.out.println("Siglas - Recibido: ");
+                  System.out.println(siglas);
+                  if(alumnoActual.yaExisteAsig(siglas)){
+                     respuesta = "Esta asignatura ya existe";
+                     estadoActual = "ANADE";
+                  } else {
+                     Asignatura asig = new Asignatura(nombre,siglas);
+                     for(int i = 0; i < alumnos.size(); i++){
+                        if(alumnos.get(i).getUsuario().equals(alumnoActual.getUsuario())){
+                           alumnos.get(i).addAsignatura(asig);
+                           alumnoActual = alumnos.get(i);
+                        }
+                     }
+                     respuesta = "Asignatura " + asig.getSiglas() + " añadida";
+                     estadoActual = "ANADE";
+                  }
                   break;
                case "ANADE_NOTA":
+
                   break;
             }
 
@@ -118,6 +159,10 @@ public class GestorAcademico extends Thread{
             outPrinter.println(respuesta);
             outPrinter.println(estadoActual);
          } while (!estadoActual.equals("EXIT"));
+
+         for(int i = 0; i < alumnos.size(); i++){
+            System.out.println(alumnos.get(i).pasoString());
+         }
 
 		} catch (IOException e) {
 			System.err.println("Error al obtener los flujos de entrada/salida.");

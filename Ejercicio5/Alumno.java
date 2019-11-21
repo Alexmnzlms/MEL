@@ -39,4 +39,22 @@ public class Alumno{
       return this.password;
    }
 
+   void setAsignaturas(ArrayList<Asignatura> asig){
+      asignaturas = asig;
+   }
+
+   ArrayList<Asignatura> getAsignaturas(){
+      return asignaturas;
+   }
+
+   boolean yaExisteAsig(String siglas){
+      boolean existe = false;
+      for(int i = 0; i < asignaturas.size(); i++){
+         if(asignaturas.get(i).getSiglas().equals(siglas)){
+            existe = true;
+         }
+      }
+      return existe;
+   }
+
 }
