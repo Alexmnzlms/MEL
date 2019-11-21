@@ -21,10 +21,14 @@ public class Asignatura{
 
    String pasoString(){
       String asign;
-      asign = "Nombre=" + nombre + "\n" + "Siglas=" + siglas + "\n";
+      asign = "Asignatura: " +"Nombre = " + nombre + ", " + "Siglas = " + siglas + ", ";
       for(int i=0; i<examenes.size(); i++){
-         asign = asign + examenes.get(i).pasoString() + "\n";
+         asign = asign + examenes.get(i).pasoString() + " ";
       }
       return asign;
     }
+
+    void addExamen(Examen ex){
+      examenes.add(ex);
+   }
 }

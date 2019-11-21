@@ -26,24 +26,58 @@ public class GestorAcademicoClienteTCP {
 		String estadoActual = "START";
 
 		try {
+			socketServicio = new Socket (host,port);
+			outPrinter = new PrintWriter (socketServicio.getOutputStream(), true);
+			inReader = new BufferedReader (new InputStreamReader(socketServicio.getInputStream()));
 			do {
-				socketServicio = new Socket (host,port);
-				outPrinter = new PrintWriter (socketServicio.getOutputStream(), true);
-				inReader = new BufferedReader (new InputStreamReader(socketServicio.getInputStream()));
-
-				String mensaje = in.nextLine();
-				System.out.println("CLIENTE - Mensaje enviado: ");
-				System.out.println(mensaje);
-				outPrinter.println(mensaje);
+				// Enviar estadoActual
 				outPrinter.println(estadoActual);
 
+				// Tomar decisión
+				switch(estadoActual){
+	            case "START":
+						//El cliente no hace nada
+						break;
+
+					case "NOAUTENTIFICADO":
+						System.out.println("Usuario: ");
+						String usuario = in.nextLine();
+						outPrinter.println(usuario);
+						System.out.println("Contraseña: ");
+						String password = in.nextLine();
+						outPrinter.println(password);
+						break;
+
+					case "AUTENTIFICADO":
+						System.out.println("¿Que desea hacer? Introduzca una letra:");
+						System.out.println("[A] Modo Añadir");
+						System.out.println("[V] Modo Visualización");
+						String opcion = in.nextLine();
+						outPrinter.println(opcion);
+						break;
+					case "VISUALIZACION":
+						System.out.println("Asignatura:");
+						String asignaturas = new String(inReader.readLine());
+						System.out.println(asignaturas);
+						break;
+					case "ANADE":
+						break;
+					case "ANADE_ASIG":
+						break;
+					case "ANADE_NOTA":
+						break;
+	         }
+
+				// Respuesta del servidor
 				String recibido = new String(inReader.readLine());
-				System.out.println("CLIENTE - Recibido: ");
+				System.out.println("CLIENTE - Mensaje recibido: ");
 				System.out.println(recibido);
+				estadoActual = new String(inReader.readLine());
+				System.out.println(estadoActual);
 
-				socketServicio.close();
+			} while (!estadoActual.equals("EXIT"));
 
-			} while (estadoApp != Estado.EXIT);
+			socketServicio.close();
 
 			// Excepciones:
 		} catch (UnknownHostException e) {

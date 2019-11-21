@@ -19,6 +19,6 @@ public class Examen{
    }
 
    String pasoString(){
-      return "Fecha " + fecha + ", nota: " + nota + "\n";
+      return "Examen: " + "Fecha-> " + fecha + ", nota-> " + nota + ", ";
    }
 }
