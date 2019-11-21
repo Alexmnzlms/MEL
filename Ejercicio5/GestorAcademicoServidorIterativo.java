@@ -18,17 +18,17 @@ public class GestorAcademicoServidorIterativo {
 
 		try {
 			ServerSocket socketServidor = new ServerSocket(port);
+			GestorAcademico procesador = new GestorAcademico();
 
 			do {
 				try {
 					socketServicio = socketServidor.accept();
+					procesador.setSocket(socketServicio);
 				}
 				catch (IOException e) {
 					System.out.println("Error:no se pudo aceptar la	conexión solicitada");
 				}
-				
-				GestorAcademico procesador = new GestorAcademico(socketServicio);
-				procesador.start();
+				procesador.procesa();
 
 			} while (true);
 		}

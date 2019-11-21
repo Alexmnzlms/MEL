@@ -22,8 +22,9 @@ public class GestorAcademico extends Thread{
 
    String estadoActual;
 
-   public GestorAcademico(Socket socketServicio) {
-      this.socketServicio=socketServicio;
+   public GestorAcademico(/*Socket socketServicio*/) {
+      System.out.println("-----------------CONSTRUCTOR-----------------");
+      //this.socketServicio=socketServicio;
       Alumno aux = new Alumno("prueba","prueba");
       Alumno aux1 = new Alumno("vacio", "vacio");
       alumnos.add(aux);
@@ -38,11 +39,11 @@ public class GestorAcademico extends Thread{
       alumnos.get(0).addAsignatura(asig);
    }
 
-   public void run() {
-      procesa();
+   public void setSocket( Socket socketServicio){
+      this.socketServicio=socketServicio;
    }
 
-   synchronized void procesa(){
+   void procesa(){
 		try {
 
 			outPrinter = new PrintWriter(socketServicio.getOutputStream(),true);
@@ -150,7 +151,24 @@ public class GestorAcademico extends Thread{
                   }
                   break;
                case "ANADE_NOTA":
-
+                  String asig_cod = new String(inReader.readLine());
+                  String dia = new String(inReader.readLine());
+                  String mes = new String(inReader.readLine());
+                  String anio = new String(inReader.readLine());
+                  String nota = new String(inReader.readLine());
+                  int idia = Integer.parseInt(dia);
+                  int imes = Integer.parseInt(mes);
+                  int ianio = Integer.parseInt(anio);
+                  int inota = Integer.parseInt(nota);
+                  Examen ex = new Examen(idia,imes,ianio,inota);
+                  for(int i = 0; i < alumnos.size(); i++){
+                     if(alumnos.get(i).getUsuario().equals(alumnoActual.getUsuario())){
+                        alumnos.get(i).addExamen(asig_cod, ex);
+                        alumnoActual = alumnos.get(i);
+                     }
+                  }
+                  respuesta = "Examen " + ex.pasoString() + " añadido a " + asig_cod;
+                  estadoActual = "ANADE";
                   break;
             }
 
@@ -160,9 +178,9 @@ public class GestorAcademico extends Thread{
             outPrinter.println(estadoActual);
          } while (!estadoActual.equals("EXIT"));
 
-         for(int i = 0; i < alumnos.size(); i++){
-            System.out.println(alumnos.get(i).pasoString());
-         }
+         socketServicio.close();
+
+
 
 		} catch (IOException e) {
 			System.err.println("Error al obtener los flujos de entrada/salida.");

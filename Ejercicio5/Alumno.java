@@ -31,6 +31,14 @@ public class Alumno{
       asignaturas.add(asign);
    }
 
+   void addExamen(String cod_asig, Examen examen){
+      for(int i = 0; i < asignaturas.size(); i++){
+         if(asignaturas.get(i).getSiglas().equals(cod_asig)){
+            asignaturas.get(i).addExamen(examen);
+         }
+      }
+   }
+
    String getUsuario(){
       return this.usuario;
    }

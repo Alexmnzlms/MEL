@@ -78,6 +78,21 @@ public class GestorAcademicoClienteTCP {
 						outPrinter.println(siglas);
 						break;
 					case "ANADE_NOTA":
+						System.out.println("Codigo de asignatura: ");
+						String cod_asig = in.nextLine();
+						outPrinter.println(cod_asig);
+						System.out.println("Dia: ");
+						String dia = in.nextLine();
+						outPrinter.println(dia);
+						System.out.println("Mes: ");
+						String mes = in.nextLine();
+						outPrinter.println(mes);
+						System.out.println("Año: ");
+						String anio = in.nextLine();
+						outPrinter.println(anio);
+						System.out.println("Nota: ");
+						String nota = in.nextLine();
+						outPrinter.println(nota);
 						break;
 	         }
 
