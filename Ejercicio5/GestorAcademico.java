@@ -22,9 +22,7 @@ public class GestorAcademico extends Thread{
 
    String estadoActual;
 
-   public GestorAcademico(/*Socket socketServicio*/) {
-      System.out.println("-----------------CONSTRUCTOR-----------------");
-      //this.socketServicio=socketServicio;
+   public GestorAcademico() {
       Alumno aux = new Alumno("prueba","prueba");
       Alumno aux1 = new Alumno("vacio", "vacio");
       alumnos.add(aux);
@@ -56,18 +54,11 @@ public class GestorAcademico extends Thread{
 
 
             String respuesta = new String();
-            /*outPrinter.println(respuesta);
-            outPrinter.println(estadoActual);
-            */
 
             switch(estadoActual){
                case "START":
                   respuesta = "Bienvenido, introduzca login y contraseña.";
-                  System.out.println(respuesta);
                   estadoActual = "NOAUTENTIFICADO";
-                  for(int i = 0; i < alumnos.size(); i++){
-                     System.out.println(alumnos.get(i).pasoString());
-                  }
                   break;
                case "NOAUTENTIFICADO":
                   String usuario = new String(inReader.readLine());
@@ -94,6 +85,7 @@ public class GestorAcademico extends Thread{
                case "AUTENTIFICADO":
                      String opcion = new String(inReader.readLine());
                      System.out.println("Opcion - Recibido: ");
+                     System.out.println(opcion);
                      if(opcion.equals("A")){
                         respuesta = "Has entrado en el Modo Añade. ¿Que quieres añadir?";
                         estadoActual = "ANADE";
@@ -115,6 +107,7 @@ public class GestorAcademico extends Thread{
                case "ANADE":
                   String aniade = new String(inReader.readLine());
                   System.out.println("Opcion - Recibido: ");
+                  System.out.println(aniade);
                   if(aniade.equals("A")){
                      respuesta = "Has entrado en el Modo Añade asignatura. ¿Que quieres añadir?";
                      estadoActual = "ANADE_ASIG";
@@ -122,7 +115,6 @@ public class GestorAcademico extends Thread{
                      respuesta = "Has entrado en el Modo Añade nota. ¿Que quieres añadir?";
                      estadoActual = "ANADE_NOTA";
                   } else if(aniade.equals("E")) {
-                     respuesta = "GOODBYE";
                      estadoActual = "AUTENTIFICADO";
                   } else {
                      estadoActual = "ANADE";
@@ -172,8 +164,6 @@ public class GestorAcademico extends Thread{
                   break;
             }
 
-
-            System.out.println("Mandar respuesta");
             outPrinter.println(respuesta);
             outPrinter.println(estadoActual);
          } while (!estadoActual.equals("EXIT"));

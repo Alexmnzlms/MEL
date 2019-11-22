@@ -101,7 +101,6 @@ public class GestorAcademicoClienteTCP {
 				System.out.println("CLIENTE - Mensaje recibido: ");
 				System.out.println(recibido);
 				estadoActual = new String(inReader.readLine());
-				System.out.println(estadoActual);
 
 			} while (!estadoActual.equals("EXIT"));
 
